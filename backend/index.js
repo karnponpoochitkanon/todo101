@@ -5,7 +5,7 @@ const cors = require('cors');
 const app = express();
 const PORT = 15000;
 
-const mongoURL = process.env.MONGO_URL || 'mongodb://localhost:27017/todos';
+const mongoURL = process.env.MONGO_URL ?? 'mongodb://mongo:27017/todos';
 
 app.use(cors());
 app.use(express.json());

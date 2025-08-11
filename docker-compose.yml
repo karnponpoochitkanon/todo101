@@ -8,19 +8,19 @@ services:
 
   todo-backend:
     build: ./backend
-    ports:
-      - "15000:15000"
     environment:
       - MONGO_URL=mongodb://mongo:27017/todos
+    ports:
+      - "15000:15000"
     depends_on:
       - mongo
 
   todo-frontend:
     build: ./frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost:15000
     ports:
       - "3000:3000"
-    environment:
-      - REACT_APP_API_URL=http://todo-backend:15000
     depends_on:
       - todo-backend
 
