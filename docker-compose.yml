@@ -1,0 +1,28 @@
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  todo-backend:
+    build: ./backend
+    ports:
+      - "15000:15000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/todos
+    depends_on:
+      - mongo
+
+  todo-frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://todo-backend:15000
+    depends_on:
+      - todo-backend
+
+volumes:
+  mongo-data:
