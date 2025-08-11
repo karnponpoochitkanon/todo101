@@ -33,8 +33,8 @@ app.put('/tasks/:id', async (req, res) => {
 });
 
 app.delete('/tasks/:id', async (req, res) => {
-    const task = await Task.findByIdAndDelete(req.params.id);
-    res.json(task);
+    await Task.findByIdAndDelete(req.params.id);
+    res.sendStatus(204);
 }
 );
 
@@ -53,8 +53,8 @@ const connectWithRetry = () => {
 
       })
       .catch(err => {
-        console,error('MongoDB connection error. Retrying in 5s...', err.massage);
-        srtTimeout(connectWithRetry, 5000);
+        console.error('MongoDB connection error. Retrying in 5s...', err.message);
+        setTimeout(connectWithRetry, 5000);
       });
 };
 
